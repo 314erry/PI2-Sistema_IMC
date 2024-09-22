@@ -1,0 +1,2 @@
+Essa pasta conterá imagens que serão usadas somente com o HTML.
+Não as use diretamente no CSS.
