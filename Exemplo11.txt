@@ -1,0 +1,3 @@
+Olá, mundo!
+Este é um exemplo de texto.
+Vamos contar caracteres, palavras e linhas.
