@@ -1,1 +1,77 @@
 Essa pasta conterá os códigos em SQL para o banco de dados.
+
+** PASSO A PASSO PARA INSTALAR O BANCO DE DADOS **
+
+- Baixe o postgres e instale https://www.postgresql.org/download/windows/
+
+- Na configuracao de usuario e senha coloque os dois como >> postgres << e a porta padrao 5432 para que a conexao do .env funcione em todas as maquina
+
+- Quando instalado Postgres automaticamente vai criar um banco de dados de nome "postgres"
+
+- Usando o pgAdmin4 que ja vem instalado com eles voces podem abrir pra verificar que vai estar la esse database
+
+- Agora usando uma plataforma como DBeaver ou o proprio console se prefifirem precisamos nos conectar a esse banco
+
+    - Pelo console seguimos a seguinte linha de comandos:
+    - Acesse o diretório de instalação do PostgreSQL (geralmente C:\Program Files\PostgreSQL\13\bin)
+    - Execute o comando: psql -U postgres ( talvez o windows reclame mas basta digitar como ./psql )
+    - \c postgres
+
+    - Se tudo deu certo voce deve estar conectado ao banco
+
+** SCRIPTS PARA CRIACAO DO TABELAS E INSERTS **
+
+- Criando a tabela usuarios
+
+    CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(50),
+    sobrenome VARCHAR(50),
+    celular numeric,
+    genero VARCHAR(10),
+    email VARCHAR(100),
+    senha VARCHAR(30)
+    );
+
+# Depois de criada a tabela podemos ja inserir um usuario admin nela para que ja exista um user sem o metodo necessitar de um cadastro
+
+-Execute esse script, seja no console conectado ao banco de dados ou na plataforma de gerenciamento
+    insert into usuarios (nome, sobrenome, celular, genero, email, senha) values ('admin', 'geral', 27999999999 , 'masculino', 'teste@admin.com' , 'admin')
+
+- Criando a tabela de comidas
+
+    CREATE TABLE comidas (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(50),
+    calorias numeric,
+    grupoAlimentar VARCHAR(20),
+    );
+
+# INSERTS DE COMIDA [Em construcao]
+
+
+** PARA UTILIZAR OS METODOS DO SERVICE **
+
+http://localhost:3000/api/usuarios: 
+[GET]
+- No PostMan/Insomnia (ou outro app de requisicoes) crie uma requisicao GET para a rota > http://localhost:3000/api/usuarios < Ela deve retornar os usuarios cadastrados
+
+[POST]
+crie uma requisicao POST para a rota > http://localhost:3000/api/usuarios < e envie em um request body em formato json os campos para criar o usuario:
+    {
+        "nome" : "luis"
+        "sobrenome" : "zanoni"
+        ..e assim por diante..
+    }
+
+
+http://localhost:3000/api/login: 
+[POST]
+crie uma requisicao POST para a rota > http://localhost:3000/api/login < e envie em um request body em formato json o email e senha que estao tentando fazer login:
+    {
+        "email" : "teste@admin.com"
+        "senha" : "admin"
+    }
+
+
+TO-DO: Implementar as outras rotas com as telas existentes para poder testar as requisicoes de forma mais intuitiva
