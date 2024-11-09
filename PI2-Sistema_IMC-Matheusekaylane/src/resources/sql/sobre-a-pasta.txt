@@ -1,1 +1,0 @@
-Essa pasta conterá os códigos em SQL para o banco de dados.
