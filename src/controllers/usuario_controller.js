@@ -15,7 +15,11 @@ const UsuarioController = {
   createUser: async (req, res) => {
     try {
       const newUser = await UsuarioService.createUser(req.body);
-      res.status(201).json(newUser);
+      if (newUser) {
+        res.status(200).json({ success: true, message: "Usuario criado com sucesso!" });
+      } else {
+        res.status(401).json({ success: false, message: "Erro ao criar usuario, usuario ja existe ou alguma informacao esta incorreta!" });
+      }
     } catch (error) {
       res.status(500).json({ error: 'Erro ao criar usuário' });
     }

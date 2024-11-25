@@ -23,8 +23,8 @@ body {
     width: 100%;
     max-width: 300px;
     text-align: center;
-    margin-right: auto; 
-    margin-left: 50px; 
+    margin-right: auto;
+    margin-left: 50px;
 }
 
 
@@ -41,7 +41,9 @@ h1 {
     display: block;
 }
 
-.calculator input, .calculator select { /* Estilos compartilhados entre input e select */
+.calculator input,
+.calculator select {
+    /* Estilos compartilhados entre input e select */
     width: 100%;
     padding: 10px;
     border-radius: 8px;
@@ -51,7 +53,8 @@ h1 {
     transition: border 0.3s ease;
 }
 
-.calculator input:focus, .calculator select:focus {
+.calculator input:focus,
+.calculator select:focus {
     border-color: #2C3E00;
 }
 
@@ -77,18 +80,23 @@ button:hover {
     color: #2C3E00;
     font-weight: bold;
 }
+
 .obesity {
-    color: red; /* Cor para obesidade */
+    color: red;
+    /* Cor para obesidade */
 }
 
 .underweight {
-    color: red; /* Cor para abaixo do peso */
+    color: red;
+    /* Cor para abaixo do peso */
 }
 
 .normal {
-    color: orange; /* Cor para peso normal */
+    color: green;
+    /* Cor para peso normal */
 }
 
 .overweight {
-    color: yellow; /* Cor para sobrepeso */
+    color: orange;
+    /* Cor para sobrepeso */
 }
