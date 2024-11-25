@@ -6,6 +6,8 @@ document.getElementById("formLogin").addEventListener("submit", async function(e
 
     let reqBody = {email, senha}
 
+     window.location.href = '/index';
+
     try {
         const response = await fetch('/api/login', {
             method: 'POST',

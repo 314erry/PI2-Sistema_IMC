@@ -20,6 +20,11 @@ function calculateIMC() {
     const height = parseFloat(document.getElementById('height').value);
     const weight = parseFloat(document.getElementById('weight').value);
     const resultElement = document.getElementById('result');
+    const caloriasDiarias = document.getElementById('media-calorias');
+    const caloriasCafe = document.getElementById('calorias-cafe');
+    const caloriasAlmoco = document.getElementById('calorias-almoco');
+    const caloriasJanta = document.getElementById('calorias-janta');
+    const objetivo = document.getElementById('goal').value;
 
     if (isNaN(height) || isNaN(weight)) {
         resultElement.textContent = 'Por favor, insira valores válidos.';
@@ -44,5 +49,20 @@ function calculateIMC() {
         className = 'obesity'; // Classe para obesidade
     }
 
+    let calculoMediaDiaria = 88.362 + (13.397 * weight) + (4.799 * (height*100)) - (5.677 * 30);
+    const calculoCaloriasCafe = calculoMediaDiaria * 0.20
+    const calculoCaloriasAlmoco = calculoMediaDiaria * 0.40
+    const calculoCaloriasJanta =  calculoMediaDiaria * 0.40
+
+    caloriasCafe.innerHTML = `Calorias recomendadas: ${calculoCaloriasCafe.toFixed(2)}`
+    caloriasAlmoco.innerHTML = `Calorias recomendadas: ${calculoCaloriasAlmoco.toFixed(2)}`
+    caloriasJanta.innerHTML = `Calorias recomendadas: ${calculoCaloriasJanta.toFixed(2)}`
+    if(objetivo == 'emagrecer'){
+        calculoMediaDiaria = calculoMediaDiaria * 0.7
+    }else {
+        calculoMediaDiaria = calculoMediaDiaria * 1.3
+    }
+
+    caloriasDiarias.innerHTML = `Sua media diaria de calorias é = ${calculoMediaDiaria.toFixed(2)}`
     resultElement.innerHTML = `Seu IMC é <span class="${className}">${imc}</span>. ${category}`;
 }

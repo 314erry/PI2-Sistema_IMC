@@ -38,6 +38,7 @@ document.getElementById("formCadastro").addEventListener("submit", async functio
         if (response.ok) {
             const data = await response.json();
             alert(data.message);
+            window.location.href = '/login';
         } else {
             const error = await response.json();
             alert(`Erro ao criar usuário: ${error.message}`);

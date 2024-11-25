@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const { Pool } = require('pg');
-require('dotenv').config({path: '../.env'} );
+
 
 app.use(express.static(path.join(__dirname, 'resources')));
 
