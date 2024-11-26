@@ -10,7 +10,7 @@ function baixarArquivo(dados, nomeArquivo) {
     window.URL.revokeObjectURL(url);
 }
 
-document.getElementById("formCadastro").addEventListener("submit", function(event){
+document.getElementById("formCadastro").addEventListener("submit", async function(event){
     event.preventDefault();
 
     let nome = document.getElementById("firstname").value;
@@ -26,7 +26,25 @@ document.getElementById("formCadastro").addEventListener("submit", function(even
         return;
     }
 
-    let dadosCadastro = `Nome: ${nome}\\Sobrenome: ${sobrenome}\\Celular: ${celular}\\Gênero: ${genero}\\Email: ${email}\\Senha: ${senha}`;
+    let user = {nome, sobrenome, celular, genero, email, senha};
 
-    baixarArquivo(dadosCadastro, 'dados_cadastro.txt');
+    try {
+        const response = await fetch('/api/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user)
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            alert(data.message);
+            window.location.href = '/login';
+        } else {
+            const error = await response.json();
+            alert(`Erro ao criar usuário: ${error.message}`);
+        }
+    } catch (err) {
+        console.error('Erro na requisição:', err);
+        alert('Erro ao enviar os dados. Tente novamente mais tarde.');
+    }
 });
