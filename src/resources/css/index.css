@@ -111,6 +111,10 @@ button:hover {
     margin-bottom: 20px;
 }
 
+.meal-section {
+    display: none;
+}
+
 .meal-section h3 {
     font-size: 18px;
     color: #2C3E00;

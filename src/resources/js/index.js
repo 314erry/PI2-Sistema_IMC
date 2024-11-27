@@ -17,6 +17,7 @@ function formatHeight(input) {
 }
 
 function calculateIMC() {
+    document.getElementById("meal-section").style.display = "block"
     const height = parseFloat(document.getElementById('height').value);
     const weight = parseFloat(document.getElementById('weight').value);
     const resultElement = document.getElementById('result');
