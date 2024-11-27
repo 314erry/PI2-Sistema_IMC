@@ -18,24 +18,34 @@ body {
 }
 
 .main-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    /* Duas colunas: calculadora e cardápio */
+    display: flex;
+    justify-content: center;
     gap: 20px;
     width: 90%;
     max-width: 1200px;
-    background: #ffffff00;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .container,
 .menu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background: #ffffff;
+}
+
+.container {
+    width: 500px;
+    height: 500px;
+}
+
+.menu-container {
+    width: 1500px;
 }
 
 /* Estilo da calculadora */
@@ -98,25 +108,119 @@ button:hover {
     font-size: 18px;
     color: #2C3E00;
     margin-bottom: 10px;
+    text-align: center;
+}
+
+.cabecalho {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cabecalho button {
+    padding: 5px px;
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    background-color: #2C3E00;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100px;
+}
+
+#menu-title {
+    margin: 0 50px;
+}
+
+button:hover {
+    background-color: #93aa59;
+    transform: scale(1.05);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.8);
 }
 
 .food-options {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
+    overflow-x: auto; /* Permitindo scroll horizontal */
+    scroll-behavior: smooth; /* Rolar suavemente */
+    max-width: 100%; /* Ajustar à largura do container pai */
+    padding: 10px 0; /* Espaço para visualização */
+    max-width: calc((130px * 4) + (10px * 3));
 }
 
+/* Melhorando a barra de rolagem */
+.food-options::-webkit-scrollbar {
+    height: 8px; /* Altura da barra de rolagem */
+}
+
+.food-options::-webkit-scrollbar-thumb {
+    background-color: #888; /* Cor da barra */
+    border-radius: 10px; /* Arredondamento */
+}
+
+.food-options::-webkit-scrollbar-track {
+    background-color: #ddd; /* Fundo da barra */
+}
+
+/* Estilo dos itens */
 .food-item {
-    background: #A9C47F;
-    padding: 10px 15px;
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;  
+    width: 130px;
+    height: 150px;
+    background: #DDDADA;
+    padding: 5px 10px;
     border-radius: 5px;
     text-align: center;
-    color: #2C3E00;
-    font-size: 14px;
+
+    min-width: 130px; /* Essencial para scroll horizontal */
+    flex-shrink: 0; /* Evitar que os itens diminuam */
 }
 
-.meal-section p {
-    font-size: 16px;
-    color: #2C3E00;
+.food-item img {
+    width: 100px;
+    height: 60px;
+    object-fit: cover; /* Ajusta o conteúdo da imagem */
+  }
+  
+.food-item p:first-of-type {
+    font-size: 12px;
     margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.food-item p:last-of-type {
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: red;
+    font-weight: bold;
+}
+
+.food-item div:first-of-type {
+    text-align: center;
+    width: 90px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.food-item div:last-of-type {
+    border-radius: 5px;
+    background-color: #FF0000;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    width: 40px;
+    text-align: center;
 }

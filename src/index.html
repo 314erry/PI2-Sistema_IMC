@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de IMC</title>
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="../css/index.css">
 
 </head>
 
@@ -33,44 +33,37 @@
             </div>
         </div>
 
+
         <!-- Seção de Cardápio -->
         <div class="menu-container">
+
             <h2>Monte seu Cardápio!</h2>
             <p id="media-calorias"></p>
+            
             <div class="meal-section">
-                <h3>Café da Manhã:</h3>
-                <div class="food-options">
-                    <div class="food-item">ARROZ</div>
-                    <div class="food-item">ARROZ</div>
-                    <div class="food-item">ARROZ</div>
-                    <div class="food-item">ARROZ</div>
+
+                <div class="cabecalho">
+                    <button id="btn-prev">← Voltar</button>
+                    <h2 id="menu-title">Café da Manhã</h2>
+                    <button id="btn-next">Próximo →</button>
                 </div>
-                <p id="calorias-cafe"></p>
+
+                <div class="food-options" id="food-options">
+                    <div class="food-item"></div>
+                    <div class="food-item"></div>
+                    <div class="food-item"></div>
+                    <div class="food-item"></div>
+                    <div class="food-item"></div>
+                    <div class="food-item"></div>
+                    <div class="food-item"></div>
+                    <div class="food-item"></div>
             </div>
-            <div class="meal-section">
-                <h3>Almoço:</h3>
-                <div class="food-options">
-                    <div class="food-item">ARROZ</div>
-                    <div class="food-item">ARROZ</div>
-                    <div class="food-item">ARROZ</div>
-                    <div class="food-item">ARROZ</div>
-                </div>
-                <p id="calorias-almoco"></p>
-            </div>
-            <div class="meal-section">
-                <h3>Jantar:</h3>
-                <div class="food-options">
-                    <div class="food-item">ARROZ</div>
-                    <div class="food-item">ARROZ</div>
-                    <div class="food-item">ARROZ</div>
-                    <div class="food-item">ARROZ</div>
-                </div>
-                <p id="calorias-janta"></p>
-            </div>
+
+            <p id="calorias-cafe"></p>
             <h3>Total Calorias Geral: 1500cal</h3>
+
         </div>
-    </div>
-    <script src="./js/index.js"></script>
+        <script src="../js/index.js"></script>
 </body>
 
 
