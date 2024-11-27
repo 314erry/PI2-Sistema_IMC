@@ -28,8 +28,7 @@
                 </select>
 
                 <button onclick="calculateIMC()">Calcular</button>
-
-                <p id="result"></p>
+                <p id="result">.</p>
             </div>
         </div>
 
@@ -38,7 +37,8 @@
         <div class="menu-container">
 
             <h2>Monte seu Cardápio!</h2>
-            <p id="media-calorias"></p>
+            <p id="media-calorias">Sua média diária de calorias é 0 kcal.</p>
+
             <div class="meal-section">
 
                 <div class="cabecalho">
@@ -58,8 +58,13 @@
                     <div class="food-item"></div>
             </div>
 
-            <p id="calorias-cafe"></p>
-            <h3>Total Calorias Geral: 1500cal</h3>
+           <div class="container-calorias">
+                <p id="calorias-cafe">Café: 0 kcal</p>
+                <p id="calorias-almoco">Almoço: 0 kcal</p>
+                <p id="calorias-janta">Janta: 0 kcal</p>
+           </div>
+
+            <h3>Total Calorias Geral: 0 kcal</h3>
 
         </div>
         <script src="../js/index.js"></script>

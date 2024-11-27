@@ -20,7 +20,6 @@ function calculateIMC() {
     const height = parseFloat(document.getElementById('height').value);
     const weight = parseFloat(document.getElementById('weight').value);
     const resultElement = document.getElementById('result');
-    const caloriasDiarias = document.getElementById('media-calorias');
     const caloriasCafe = document.getElementById('calorias-cafe');
     const caloriasAlmoco = document.getElementById('calorias-almoco');
     const caloriasJanta = document.getElementById('calorias-janta');
@@ -49,22 +48,26 @@ function calculateIMC() {
         className = 'obesity'; // Classe para obesidade
     }
 
-    let calculoMediaDiaria = 88.362 + (13.397 * weight) + (4.799 * (height * 100)) - (5.677 * 30);
-    const calculoCaloriasCafe = calculoMediaDiaria * 0.20
-    const calculoCaloriasAlmoco = calculoMediaDiaria * 0.40
-    const calculoCaloriasJanta = calculoMediaDiaria * 0.40
+    resultElement.style.visibility = "visible";
+    resultElement.innerHTML = `Seu IMC é <span class="${className}">${imc}</span>. ${category}`;
 
-    caloriasCafe.innerHTML = `Calorias recomendadas: ${calculoCaloriasCafe.toFixed(2)}`
-    caloriasAlmoco.innerHTML = `Calorias recomendadas: ${calculoCaloriasAlmoco.toFixed(2)}`
-    caloriasJanta.innerHTML = `Calorias recomendadas: ${calculoCaloriasJanta.toFixed(2)}`
-    if (objetivo == 'emagrecer') {
-        calculoMediaDiaria = calculoMediaDiaria * 0.7
+    let calculoMediaDiaria = 88.362 + (13.397 * weight) + (4.799 * (height * 100)) - (5.677 * 30);
+    const caloriasDiarias = document.getElementById('media-calorias');
+    const calculoCaloriasCafe = calculoMediaDiaria * 0.20;
+    const calculoCaloriasAlmoco = calculoMediaDiaria * 0.40;
+    const calculoCaloriasJanta = calculoMediaDiaria * 0.40;
+
+    caloriasCafe.innerHTML = `Café: ${calculoCaloriasCafe.toFixed(2)} kcal`;
+    caloriasAlmoco.innerHTML = `Almoço: ${calculoCaloriasAlmoco.toFixed(2)} kcal`;
+    caloriasJanta.innerHTML = `Janta: ${calculoCaloriasJanta.toFixed(2)} kcal`;
+
+    if (objetivo === 'emagrecer') {
+        calculoMediaDiaria *= 0.7;
     } else {
-        calculoMediaDiaria = calculoMediaDiaria * 1.3
+        calculoMediaDiaria *= 1.3;
     }
 
-    caloriasDiarias.innerHTML = `Sua media diaria de calorias é = ${calculoMediaDiaria.toFixed(2)}`;
-    resultElement.innerHTML = `Seu IMC é <span class="${className}">${imc}</span>. ${category}`;
+    caloriasDiarias.innerHTML = `Sua média diária de calorias é ${calculoMediaDiaria.toFixed(2)} kcal.`;
 }
 
 const menuData = {
@@ -108,35 +111,76 @@ const menuItems = document.getElementById("food-options");
 const btnPrev = document.getElementById("btn-prev");
 const btnNext = document.getElementById("btn-next");
 
-// Function to add click event listeners to food items
+const selectedItems = {}; // Objeto para armazenar itens selecionados por categoria
+
 function addFoodItemListeners() {
     const foodItems = document.querySelectorAll(".food-item");
     foodItems.forEach((item) => {
         item.addEventListener("click", () => {
-            // Toggle selection style
-            if (item.style.backgroundColor === "rgb(165, 185, 94)") {
+            const category = categories[currentCategoryIndex];
+            const itemName = item.querySelector('p').textContent.trim();
+
+            // Inicializa a categoria no objeto de seleção, se não existir
+            if (!selectedItems[category]) {
+                selectedItems[category] = new Set();
+            }
+
+            // Alterna a seleção do item
+            if (selectedItems[category].has(itemName)) {
+                selectedItems[category].delete(itemName); // Remove da seleção
                 item.style.backgroundColor = "#DDDADA"; // Reset to default color
             } else {
+                selectedItems[category].add(itemName); // Adiciona à seleção
                 item.style.backgroundColor = "#A5B95E"; // Selection color
             }
+
+                calculateTotalCalories();
         });
     });
 }
 
-// Função para renderizar itens da categoria atual
+function calculateTotalCalories() {
+    let totalCalories = 0;
+
+    // Itera sobre cada categoria de itens selecionados
+    for (const category in selectedItems) {
+        selectedItems[category].forEach((itemName) => {
+            // Encontra o item no menuData para obter as calorias
+            const item = menuData[category].find(food => food.name === itemName);
+            if (item) {
+                // Remove "kcal" e converte para número
+                const calories = parseInt(item.cal.replace("kcal", "").trim());
+                totalCalories += calories;
+            }
+        });
+    }
+
+    // Atualiza o elemento de total de calorias
+    const totalCaloriesElement = document.getElementById("total-calories");
+    totalCaloriesElement.textContent = `Total de Calorias: ${totalCalories} kcal`;
+}
+
 function renderMenu() {
     const category = categories[currentCategoryIndex];
     menuTitle.textContent = category;
     menuItems.innerHTML = ""; // Limpa os itens anteriores
 
-    menuData[category].forEach((item) => {    addFoodItemListeners();
+    menuData[category].forEach((item) => {
         const itemDiv = document.createElement("div");
         itemDiv.className = "food-item";
         itemDiv.innerHTML = `
-                <img src="${item.img}" alt="${item.name}">
-                <p>${item.name}</p> 
-                <p>${item.cal}</p>
-            `;
+            <img src="${item.img}" alt="${item.name}">
+            <p>${item.name}</p> 
+            <p>${item.cal}</p>
+        `;
+
+        // Aplica a seleção visual se o item estiver selecionado
+        if (selectedItems[category] && selectedItems[category].has(item.name)) {
+            itemDiv.style.backgroundColor = "#A5B95E";
+        } else {
+            itemDiv.style.backgroundColor = "#DDDADA";
+        }
+
         menuItems.appendChild(itemDiv);
     });
 
@@ -162,3 +206,4 @@ btnNext.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
     renderMenu();
 });
+

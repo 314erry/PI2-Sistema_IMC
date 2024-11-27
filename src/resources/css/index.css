@@ -40,7 +40,7 @@ body {
 }
 
 .container {
-    width: 500px;
+    width: 650px;
     height: 500px;
 }
 
@@ -87,6 +87,13 @@ button:hover {
     background-color: #263900;
 }
 
+#result {
+    margin-top: 10px;
+    text-wrap: nowrap;
+    visibility: hidden;
+    text-align: center;
+}
+
 /* Estilo do cardápio */
 .menu-container h2 {
     font-size: 22px;
@@ -114,7 +121,7 @@ button:hover {
 .cabecalho {
     display: flex;
     margin-bottom: 20px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -133,6 +140,18 @@ button:hover {
 
 #menu-title {
     margin: 0 50px;
+}
+
+.calculator button {
+    padding: 5px px;
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    background-color: #2C3E00;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
@@ -171,6 +190,8 @@ button:focus {
 
 /* Estilo dos itens */
 .food-item {
+    user-select: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -221,4 +242,16 @@ button:focus {
     font-size: 12px;
     width: 40px;
     text-align: center;
+}
+
+.container-calorias {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container-calorias p {
+    color: #2C3E00;
+    font-weight: bold;
 }
