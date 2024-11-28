@@ -40,7 +40,7 @@ body {
 }
 
 .container {
-    width: 500px;
+    width: 650px;
     height: 500px;
 }
 
@@ -87,6 +87,13 @@ button:hover {
     background-color: #263900;
 }
 
+#result {
+    margin-top: 10px;
+    text-wrap: nowrap;
+    visibility: hidden;
+    text-align: center;
+}
+
 /* Estilo do cardápio */
 .menu-container h2 {
     font-size: 22px;
@@ -104,6 +111,10 @@ button:hover {
     margin-bottom: 20px;
 }
 
+.meal-section {
+    display: none;
+}
+
 .meal-section h3 {
     font-size: 18px;
     color: #2C3E00;
@@ -114,7 +125,7 @@ button:hover {
 .cabecalho {
     display: flex;
     margin-bottom: 20px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -135,6 +146,18 @@ button:hover {
     margin: 0 50px;
 }
 
+.calculator button {
+    padding: 5px px;
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    background-color: #2C3E00;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
 button:hover {
     background-color: #93aa59;
     transform: scale(1.05);
@@ -148,25 +171,33 @@ button:focus {
 .food-options {
     display: flex;
     gap: 10px;
-    overflow-x: auto; /* Permitindo scroll horizontal */
-    scroll-behavior: smooth; /* Rolar suavemente */
-    max-width: 100%; /* Ajustar à largura do container pai */
-    padding: 10px 0; /* Espaço para visualização */
+    overflow-x: auto;
+    /* Permitindo scroll horizontal */
+    scroll-behavior: smooth;
+    /* Rolar suavemente */
+    max-width: 100%;
+    /* Ajustar à largura do container pai */
+    padding: 10px 0;
+    /* Espaço para visualização */
     max-width: calc((130px * 4) + (10px * 3));
 }
 
 /* Melhorando a barra de rolagem */
 .food-options::-webkit-scrollbar {
-    height: 8px; /* Altura da barra de rolagem */
+    height: 8px;
+    /* Altura da barra de rolagem */
 }
 
 .food-options::-webkit-scrollbar-thumb {
-    background-color: #888; /* Cor da barra */
-    border-radius: 10px; /* Arredondamento */
+    background-color: #888;
+    /* Cor da barra */
+    border-radius: 10px;
+    /* Arredondamento */
 }
 
 .food-options::-webkit-scrollbar-track {
-    background-color: #ddd; /* Fundo da barra */
+    background-color: #ddd;
+    /* Fundo da barra */
 }
 
 /* Estilo dos itens */
@@ -176,7 +207,7 @@ button:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;  
+    flex-direction: column;
     width: 130px;
     height: 150px;
     background: #DDDADA;
@@ -184,16 +215,19 @@ button:focus {
     border-radius: 5px;
     text-align: center;
 
-    min-width: 130px; /* Essencial para scroll horizontal */
-    flex-shrink: 0; /* Evitar que os itens diminuam */
+    min-width: 130px;
+    /* Essencial para scroll horizontal */
+    flex-shrink: 0;
+    /* Evitar que os itens diminuam */
 }
 
 .food-item img {
     width: 100px;
     height: 60px;
-    object-fit: cover; /* Ajusta o conteúdo da imagem */
-  }
-  
+    object-fit: cover;
+    /* Ajusta o conteúdo da imagem */
+}
+
 .food-item p:first-of-type {
     font-size: 12px;
     margin-top: 5px;
@@ -223,4 +257,16 @@ button:focus {
     font-size: 12px;
     width: 40px;
     text-align: center;
+}
+
+.container-calorias {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container-calorias p {
+    color: #2C3E00;
+    font-weight: bold;
 }
