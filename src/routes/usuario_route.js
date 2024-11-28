@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.get('/usuarios', UsuarioController.getAllUsers);
 
-
 router.post('/create', UsuarioController.createUser);
 
 router.post('/login', UsuarioController.login);

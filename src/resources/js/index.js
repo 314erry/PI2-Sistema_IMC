@@ -53,6 +53,13 @@ function calculateIMC() {
     resultElement.innerHTML = `Seu IMC é <span class="${className}">${imc}</span>. ${category}`;
 
     let calculoMediaDiaria = 88.362 + (13.397 * weight) + (4.799 * (height * 100)) - (5.677 * 30);
+
+    if (objetivo === 'emagrecer') {
+        calculoMediaDiaria *= 0.7;
+    } else {
+        calculoMediaDiaria *= 1.3;
+    }
+
     const caloriasDiarias = document.getElementById('media-calorias');
     const calculoCaloriasCafe = calculoMediaDiaria * 0.20;
     const calculoCaloriasAlmoco = calculoMediaDiaria * 0.40;
@@ -61,12 +68,6 @@ function calculateIMC() {
     caloriasCafe.innerHTML = `Café: ${calculoCaloriasCafe.toFixed(2)} kcal`;
     caloriasAlmoco.innerHTML = `Almoço: ${calculoCaloriasAlmoco.toFixed(2)} kcal`;
     caloriasJanta.innerHTML = `Janta: ${calculoCaloriasJanta.toFixed(2)} kcal`;
-
-    if (objetivo === 'emagrecer') {
-        calculoMediaDiaria *= 0.7;
-    } else {
-        calculoMediaDiaria *= 1.3;
-    }
 
     caloriasDiarias.innerHTML = `Sua média diária de calorias é ${calculoMediaDiaria.toFixed(2)} kcal.`;
 }
@@ -96,7 +97,7 @@ const menuData = {
         { name: "Filé de frango 1 unidade média, ~120 g", cal: "120", img: "https://vocegastro.com.br/app/uploads/2021/11/receita-de-file-de-frango.jpg" },
         { name: "Feijão 1 concha média, ~150 g", cal: "95", img: "https://saude.mpu.mp.br/nutricao/receitas/imagens/Feijaonutritivo.png" },
         { name: "Bife 1 unidade média, ~120 g", cal: "250", img: "https://marmoreio.com.br/wp-content/uploads/2020/06/bife-ancho-1200x738-2.jpg" },
-        { name: "Macarrão 1 porção média, ~100 g, cozido, sem molho", cal: "150kcal", img: "https://receitatodahora.com.br/wp-content/uploads/2024/07/macarrao-na-manteiga-1507.jpg" },
+        { name: "Macarrão 1 porção média, ~100 g, cozido, sem molho", cal: "150", img: "https://receitatodahora.com.br/wp-content/uploads/2024/07/macarrao-na-manteiga-1507.jpg" },
         { name: "Sopa 1 prato fundo, ~300 ml - base de legumes", cal: "120", img: "https://s2-receitas.glbimg.com/ebymlDcLs-wsYgaZz2lyEA0ZMz4=/0x0:1280x800/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_1f540e0b94d8437dbbc39d567a1dee68/internal_photos/bs/2022/U/r/l6uJf6Sf6HSyV8WrWSTA/sopa-de-legumes-com-frango-receita.jpg" },
         { name: "Carne moída 1 porção média, ~100 g", cal: "250", img: "https://www.kitano.com.br/wp-content/uploads/2019/07/SSP_2642-Carne-moi%E2%95%A0%C3%BCda-com-vegetais-louro-e-pimenta.jpg" }
     ]
@@ -115,9 +116,11 @@ const selectedItems = {}; // Objeto para armazenar itens selecionados por catego
 
 function calculateTotalCalories() {
     let totalCalories = 0;
+    const categoryCalories = {}; // Objeto para armazenar calorias por categoria
 
     // Itera sobre cada categoria de itens selecionados
     for (const category in selectedItems) {
+        let categoryTotal = 0; // Soma de calorias da categoria atual
         selectedItems[category].forEach((itemName) => {
             // Encontra o item no menuData para obter as calorias
             const item = menuData[category].find(food => food.name === itemName);
@@ -125,13 +128,57 @@ function calculateTotalCalories() {
                 // Remove "kcal" e converte para número
                 const calories = parseInt(item.cal.replace("kcal", "").trim());
                 totalCalories += calories;
+                categoryTotal += calories;
             }
         });
+        // Armazena o total da categoria
+        categoryCalories[category] = categoryTotal;
     }
 
     // Atualiza o elemento de total de calorias
     const totalCaloriesElement = document.getElementById("total-calories");
     totalCaloriesElement.textContent = `Total de Calorias: ${totalCalories} kcal`;
+
+    // Atualiza as calorias por categoria
+    const categoryCaloriesElement = document.getElementById("category-calories");
+    categoryCaloriesElement.innerHTML = ''; // Limpa os valores anteriores
+
+    for (const category in categoryCalories) {
+        const categoryElement = document.createElement('p');
+        categoryElement.textContent = `${category}: ${categoryCalories[category]} kcal`;
+        categoryCaloriesElement.appendChild(categoryElement);
+    }
+
+    // Verifica se o total de calorias do café da manhã excede o limite
+    const caloriasCafeElement = document.getElementById('calorias-cafe');
+    const calculoCaloriasCafe = parseFloat(caloriasCafeElement.textContent.match(/[\d.]+/)[0]); // Extrai o valor numérico do texto
+
+    if (categoryCalories['Café da Manhã'] > calculoCaloriasCafe) {
+        caloriasCafeElement.style.color = 'red'; // Muda a cor para vermelho
+    } else {
+        caloriasCafeElement.style.color = ''; // Reseta a cor para o padrão
+    }
+
+
+    // Verifica se o total de calorias do almoço excede o limite
+    const caloriasAlmocoElement = document.getElementById('calorias-almoco');
+    const calculoCaloriasAlmoco = parseFloat(caloriasAlmocoElement.textContent.match(/[\d.]+/)[0]); // Extrai o valor numérico do texto
+
+    if (categoryCalories['Almoço'] > calculoCaloriasAlmoco) {
+        caloriasAlmocoElement.style.color = 'red'; // Muda a cor para vermelho
+    } else {
+        caloriasAlmocoElement.style.color = ''; // Reseta a cor para o padrão
+    }
+
+    // Verifica se o total de calorias do jantar excede o limite
+    const caloriasJantaElement = document.getElementById('calorias-janta');
+    const calculoCaloriasJanta = parseFloat(caloriasJantaElement.textContent.match(/[\d.]+/)[0]); // Extrai o valor numérico do texto
+
+    if (categoryCalories['Janta'] > calculoCaloriasJanta) {
+        caloriasJantaElement.style.color = 'red'; // Muda a cor para vermelho
+    } else {
+        caloriasJantaElement.style.color = ''; // Reseta a cor para o padrão
+    }
 }
 
 function addFoodItemListeners() {
@@ -172,7 +219,7 @@ function renderMenu() {
         itemDiv.innerHTML = `
             <img src="${item.img}" alt="${item.name}">
             <p>${item.name}</p>
-            <p>${item.cal} </p> <!-- As calorias continuam no formato original, sem modificação -->
+            <p>${item.cal}kcal </p> <!-- As calorias continuam no formato original, sem modificação -->
         `;
 
         // Aplica a seleção visual se o item estiver selecionado

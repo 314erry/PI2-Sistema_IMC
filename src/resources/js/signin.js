@@ -1,15 +1,3 @@
-function baixarArquivo(dados, nomeArquivo) {
-    const blob = new Blob([dados], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.style.display = 'none';
-    a.href = url;
-    a.download = nomeArquivo;
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-}
-
 document.getElementById("formCadastro").addEventListener("submit", async function(event){
     event.preventDefault();
 
@@ -29,7 +17,7 @@ document.getElementById("formCadastro").addEventListener("submit", async functio
     let user = {nome, sobrenome, celular, genero, email, senha};
 
     try {
-        const response = await fetch('/api/create', {
+        const response = await fetch('http://localhost:3000/api/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)

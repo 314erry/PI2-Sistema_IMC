@@ -6,8 +6,6 @@ document.getElementById("formLogin").addEventListener("submit", async function(e
 
     let reqBody = {email, senha}
 
-     window.location.href = '/index';
-
     try {
         const response = await fetch('/api/login', {
             method: 'POST',
@@ -18,7 +16,6 @@ document.getElementById("formLogin").addEventListener("submit", async function(e
         if (response.ok) {
             const data = await response.json();
             alert(data.message);
-
             window.location.href = '/index';
         } else {
             const error = await response.json();

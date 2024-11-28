@@ -266,6 +266,13 @@ button:focus {
     margin-bottom: 10px;
 }
 
+.calorias-selecionadas {
+    display: none;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .container-calorias p {
     color: #2C3E00;
     font-weight: bold;

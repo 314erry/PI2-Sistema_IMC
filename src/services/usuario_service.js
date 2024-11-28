@@ -8,6 +8,15 @@ const pool = new Pool({
   ssl: false,
 });
 
+pool.connect()
+  .then(client => {
+    console.log('Conectado com sucesso!');
+    client.release();
+  })
+  .catch(err => {
+    console.error('Erro ao conectar:', err.stack);
+  });
+
 const UsuarioService = {
   getAllUsers: async () => {
     const result = await pool.query('SELECT * FROM usuarios');
